@@ -123,7 +123,7 @@ tune_index = tune_list.index(tune_choice)
 # Play the alarm tune
 mixer.init()
 mixer.music.load(alarm_path+"/"+tune_choice)
-mixer.music.play()
+mixer.music.play(loops=-1)
 
 # Asking user to stop the alarm
 input("Press ENTER to stop alarm")
