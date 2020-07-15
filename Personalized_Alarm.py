@@ -28,9 +28,9 @@ while len(os.listdir(alarm_path))==0:
     else:
         continue
 
+ # Calculating the difference between two lists
 def List_diff(list1, list2): 
     return (list(set(list1) - set(list2)))
-
 
 # If no csv file, create the lists with parameters as zero
 if not os.path.isfile("tune_parameters.csv"):
