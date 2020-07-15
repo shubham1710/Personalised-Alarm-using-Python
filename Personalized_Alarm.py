@@ -123,6 +123,8 @@ tune_index = tune_list.index(tune_choice)
 # Play the alarm tune
 mixer.init()
 mixer.music.load(alarm_path+"/"+tune_choice)
+
+# Setting loops=-1 to ensure that alarm stops only when user closes it!
 mixer.music.play(loops=-1)
 
 # Asking user to stop the alarm
