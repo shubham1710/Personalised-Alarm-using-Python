@@ -23,16 +23,18 @@ if not os.path.isdir(alarm_path):
 while len(os.listdir(alarm_path))==0:
     print("No Alarm Tunes Present. Please add some tunes to the folder before proceeding.")
     confirm = input("Have you added songs? Press Y or N:\t")
-    
     if(confirm=="Y"):
         print("Good! Let's continue!")
         continue
     else:
         continue
 
- # Calculating the difference between two lists
 def List_diff(list1, list2): 
-    return (list(set(list1) - set(list2)))
+    if len(list1)>=len(list2):
+        return (list(set(list1) - set(list2)))
+    else:
+        return (list(set(list2) - set(list1)))
+
 
 # If no csv file, create the lists with parameters as zero
 if not os.path.isfile("tune_parameters.csv"):
@@ -55,13 +57,24 @@ else:
     tune_prob_rev = list(tune_df['Reverse Probability'])
     tune_prob = list(tune_df['Probability'])
     
-    for i in range(0,len(tune_diff)):
-        tune_list.append(tune_diff[i])
-        tune_time.append(60)
-        tune_counter.append(1)
-        tune_avg.append(60)
-        tune_prob_rev.append(0.1)
-        tune_prob.append(0.1)
+    if len(tune_list_os)>=len(tune_list):
+        for i in range(0,len(tune_diff)):
+            tune_list.append(tune_diff[i])
+            tune_time.append(60)
+            tune_counter.append(1)
+            tune_avg.append(60)
+            tune_prob_rev.append(0.1)
+            tune_prob.append(0.1)
+            
+    else:
+        for i in range(0,len(tune_diff)):
+            tune_diff_index = tune_list.index(tune_diff[i])
+            tune_list.pop(tune_diff_index)
+            tune_time.pop(tune_diff_index)
+            tune_counter.pop(tune_diff_index)
+            tune_avg.pop(tune_diff_index)
+            tune_prob_rev.pop(tune_diff_index)
+            tune_prob.pop(tune_diff_index)
     
     avg_sum = sum(tune_avg)
     
@@ -124,7 +137,7 @@ tune_index = tune_list.index(tune_choice)
 mixer.init()
 mixer.music.load(alarm_path+"/"+tune_choice)
 
-# Setting loops=-1 to ensure that alarm stops only when user closes it!
+# Setting loops=-1 to ensure that alarm only stops when user stops it!
 mixer.music.play(loops=-1)
 
 # Asking user to stop the alarm
