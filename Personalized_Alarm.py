@@ -29,6 +29,7 @@ while len(os.listdir(alarm_path))==0:
     else:
         continue
 
+# Finding out the alarm tunes added or removed from the folder
 def List_diff(list1, list2): 
     if len(list1)>=len(list2):
         return (list(set(list1) - set(list2)))
@@ -57,6 +58,7 @@ else:
     tune_prob_rev = list(tune_df['Reverse Probability'])
     tune_prob = list(tune_df['Probability'])
     
+    # If tunes were added
     if len(tune_list_os)>=len(tune_list):
         for i in range(0,len(tune_diff)):
             tune_list.append(tune_diff[i])
@@ -65,7 +67,8 @@ else:
             tune_avg.append(60)
             tune_prob_rev.append(0.1)
             tune_prob.append(0.1)
-            
+     
+    # If tunes were removed
     else:
         for i in range(0,len(tune_diff)):
             tune_diff_index = tune_list.index(tune_diff[i])
